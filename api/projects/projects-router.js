@@ -27,6 +27,20 @@ router.get('/:id', async (req, res, next) => {
     }
 })
 
+router.post('/', async (req, res, next) => {
+    try {
+        const { name, description } = req.body
+        const newProject = Projects.insert({ name, description })
+        if (!name || !description) {
+            res.status(400).json({ message: 'Please provide name and description'})
+        } else {
+            res.status(200).json(newProject)
+        }
+    } catch (err) {
+        next(err)
+    }
+})
+
 router.use((err, req, res, next) => {
     res.status(err.status || 500).json({ message: err.message })
 })
