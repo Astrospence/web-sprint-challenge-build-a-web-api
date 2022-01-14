@@ -42,8 +42,8 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
     try {
-        if (!req.body.name || !req.body.description) {
-            res.status(400).json({ message: 'Please provide name and description' })
+        if (!req.body.name || !req.body.description /*|| !req.body.completed*/) { 
+            res.status(400).json({ message: 'Please provide name, description, and completed status' })
         } else {
             const updatedProject = await Projects.update(req.params.id, req.body)
             if (!updatedProject) {
@@ -51,6 +51,19 @@ router.put('/:id', async (req, res, next) => {
             } else {
                 res.status(200).json(updatedProject)
             }
+        }
+    } catch (err) {
+        next(err)
+    }
+})
+
+router.delete('/:id', async (req, res, next) => {
+    try {
+        const deleted = await Projects.remove(req.params.id)
+        if (!deleted) {
+            res.status(404).json({ message: 'No project with specified id'})
+        } else {
+            res.status(200).json()
         }
     } catch (err) {
         next(err)
