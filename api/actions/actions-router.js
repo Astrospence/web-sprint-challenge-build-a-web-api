@@ -7,7 +7,7 @@ router.get('/', async (req, res, next) => {
     try {
         const actions = await Actions.get()
         if (!actions) {
-            res.status(404).json({ message: 'No actions available'})
+            next({ status: 404, message: 'No actions found' })
         } else {
             res.status(200).json(actions)
         }
@@ -45,10 +45,6 @@ router.delete('/:id', validateId, async (req, res, next) => {
     } catch (err) {
         next(err)
     }
-})
-
-router.use((err, req, res, next) => {
-    res.status(err.status || 500).json({ message: err.message })
 })
 
 module.exports = router
