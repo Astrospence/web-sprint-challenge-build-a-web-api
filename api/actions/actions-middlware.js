@@ -9,7 +9,7 @@ function validateReqBody (req, res, next) {
     }
 }
 
-async function idNotFound (req, res, next) {
+async function validateId (req, res, next) {
     try {
         const action = await Actions.get(req.params.id)
         if (!action) {
@@ -25,5 +25,5 @@ async function idNotFound (req, res, next) {
 
 module.exports = {
     validateReqBody,
-    idNotFound,
+    validateId,
 }

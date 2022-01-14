@@ -1,6 +1,6 @@
 const express = require('express')
 const Actions = require('./actions-model')
-const { validateReqBody, idNotFound } = require('./actions-middlware')
+const { validateReqBody, validateId } = require('./actions-middlware')
 const router = express.Router()
 
 router.get('/', async (req, res, next) => {
@@ -16,7 +16,7 @@ router.get('/', async (req, res, next) => {
     }
 })
 
-router.get('/:id', idNotFound, (req, res) => {
+router.get('/:id', validateId, (req, res) => {
         res.status(200).json(req.action)
 })
 
@@ -29,7 +29,7 @@ router.post('/', validateReqBody, async (req, res, next) => {
     }
 })
 
-router.put('/:id', validateReqBody, async (req, res, next) => {
+router.put('/:id', validateReqBody, validateId, async (req, res, next) => {
     try {
         const updatedAction = await Actions.update(req.params.id, req.body)
         res.status(200).json(updatedAction)
@@ -38,7 +38,7 @@ router.put('/:id', validateReqBody, async (req, res, next) => {
     }
 })
 
-router.delete('/:id', idNotFound, async (req, res, next) => {
+router.delete('/:id', validateId, async (req, res, next) => {
     try {
         await Actions.remove(req.params.id)
         next({ status: 200 })
