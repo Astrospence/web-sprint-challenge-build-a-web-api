@@ -147,7 +147,22 @@ We have provided test data for all the resources.
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics. You might prepare by writing down your own answers before hand.
 
 1. The core features of Node.js and Express and why they are useful.
-1. Understand and explain the use of Middleware.
-1. The basic principles of the REST architectural style.
-1. Understand and explain the use of Express Routers.
-1. Describe tooling used to manually test the correctness of an API.
+  - Node.js uses javascript for both client and server, which causes less headaches, and allows for single-threaded applications and asynchronos actions. Express is a light and unopinionated framework that works on top of Node.js and makes it easier to create web apps and services. 
+
+2. Understand and explain the use of Middleware.
+  - Middleware intercepts the code sequence and performs actions before stopping it or allowing it to continue, with or without added information. It allows for more powerful apps and can also allow for DRYer code. 
+
+3. The basic principles of the REST architectural style.
+  - In general, this style has six restraints:
+    1. it has a client-server architecture
+    2. it's stateless
+    3. it's cacheable, which can improve network efficiency
+    4. it's a layered system so that client might not communicate directly with the server
+    5. the API can return a resource along with code to act on it
+    6. interfaces are uniform, such as resources being accessible and interactive through a single URL
+
+4. Understand and explain the use of Express Routers.
+  - Express routers allow division of traffic based on the request URL. This helps keep code dry and more predictable and manageable.
+
+5. Describe tooling used to manually test the correctness of an API.
+  - Great tools for testing APIs are ones that accurately represent an HTTP request from a client. A couple good programs to use are HTTPie and Postman. It's also helpful to use VSCode's debugger to walk through the code and keep track of moving values, as well as console logging to print values as the code moves along. 
