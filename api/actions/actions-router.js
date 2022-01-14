@@ -38,14 +38,10 @@ router.put('/:id', validateReqBody, async (req, res, next) => {
     }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', idNotFound, async (req, res, next) => {
     try {
-        const deletedAction = await Actions.remove(req.params.id)
-        if (!deletedAction) {
-            res.status(404).json({ message: 'No action with specified id'})
-        } else {
-            res.status(200)
-        }
+        await Actions.remove(req.params.id)
+        next({ status: 200 })
     } catch (err) {
         next(err)
     }

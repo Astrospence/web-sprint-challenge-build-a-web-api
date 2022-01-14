@@ -13,7 +13,7 @@ async function idNotFound (req, res, next) {
     try {
         const action = await Actions.get(req.params.id)
         if (!action) {
-            res.status(404).json({ message: 'No action with specified id'})
+            next({ status: 404, message: `No action with id: ${req.params.id}` })
         } else {
             req.action = action
             next()
