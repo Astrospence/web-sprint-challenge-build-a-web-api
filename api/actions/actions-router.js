@@ -29,18 +29,10 @@ router.post('/', validateReqBody, async (req, res, next) => {
     }
 })
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', validateReqBody, async (req, res, next) => {
     try {
-        if (!req.body.name || !req.body.description || !req.body.completed) {
-            console.log('400 error here')
-        } else {
-            const updatedAction = await Actions.update(req.params.id, req.body)
-            if (!updatedAction) {
-                res.status(404).json({ message: 'No action with specified id'})
-            } else {
-                res.status(200).json(updatedAction)
-            }
-        }
+        const updatedAction = await Actions.update(req.params.id, req.body)
+        res.status(200).json(updatedAction)
     } catch (err) {
         next(err)
     }
